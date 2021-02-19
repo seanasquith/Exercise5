@@ -1,8 +1,8 @@
-public class contact {
+public class Contact {
     private String name;
     private String emailAddress;
 
-    public contact(String name, String emailAddress) {
+    public Contact(String name, String emailAddress) {
         this.name = name;
         this.emailAddress = emailAddress;
     }
