@@ -7,14 +7,15 @@ public class AddressBook {
         Scanner input = new Scanner(System.in);
         List<Contact> contactArr = new ArrayList<>(); //Arraylist that stores Contact objects
         int optionInput = 0;
-        while (optionInput != 3) { //Exits loop when user enters 3
+        while (optionInput != 4) { //Exits loop when user enters 3
             System.out.println("Welcome to the address book! Please choose an option.");
             System.out.println("(1) Add a contact");
             System.out.println("(2) Search for contact");
-            System.out.println("(3) Exit.");
+            System.out.println("(3) List all contacts");
+            System.out.println("(4) Exit");
             try {
                 optionInput = input.nextInt();
-            } catch(Exception e) { // Prevents the user from entering a string into input.nextInt()
+            } catch (Exception e) { // Prevents the user from entering a string into input.nextInt()
                 input.next(); //Discards invalid input (Infinite loop otherwise)
             }
             switch (optionInput) {
@@ -27,6 +28,10 @@ public class AddressBook {
                     System.out.println();
                     break;
                 case 3:
+                    listContacts(contactArr);
+                    System.out.println();
+                    break;
+                case 4:
                     System.out.println("Exiting address book...");
                     break;
                 default:
@@ -56,20 +61,32 @@ public class AddressBook {
         Scanner input = new Scanner(System.in);
         String nameMatch = "";
         String emailMatch = "";
-        System.out.println("Please enter the contacts name.");
-        String contactName = input.nextLine();
-        if(!contactArr.isEmpty()) {
+        if (!contactArr.isEmpty()) {
+            System.out.println("Please enter the contacts name.");
+            String contactName = input.nextLine();
             for (Contact name : contactArr) {
                 if (name.getName().equals(contactName)) {
                     nameMatch = name.getName();
                     emailMatch = name.getEmailAddress();
                 }
             }
-            if(!nameMatch.isEmpty() && !emailMatch.isEmpty()) {
+            if (!nameMatch.isEmpty() && !emailMatch.isEmpty()) {
                 System.out.println("Contact found!");
                 System.out.println("The email for \"" + nameMatch + "\" is " + emailMatch);
             } else {
                 System.out.println("Contact not found!");
+            }
+        } else {
+            System.out.println("The address book is empty!");
+        }
+    }
+
+    static void listContacts(List<Contact> contactArr) {
+        if (!contactArr.isEmpty()) {
+            System.out.println("Address book:");
+            for (int i = 0; i < contactArr.size(); i++) {
+                Contact name = contactArr.get(i);
+                System.out.println((i + 1) + ". " + name.getName() + " " + name.getEmailAddress());
             }
         } else {
             System.out.println("The address book is empty!");
